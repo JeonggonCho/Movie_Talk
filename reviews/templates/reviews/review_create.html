@@ -1,0 +1,33 @@
+{% extends '!base.html' %}
+
+
+{% block style %}
+.submit-btn {
+    width: 100%;
+}
+{% endblock style %}
+
+
+{% block content %}
+<div class='container-fluid'>
+    <div class='d-flex justify-content-center align-items-center me-4'>
+        <a href="{% url 'reviews:index' %}" class='back-btn'><span class="material-symbols-outlined">
+            arrow_back_ios
+        </span></a>
+        <h4><strong>리뷰 작성</strong></h4>
+    </div>
+    <div class='d-flex justify-content-center'>
+        <form action="{% url 'reviews:review_create' %}" method='POST' enctype='multipart/form-data'>
+            <hr>
+            {% csrf_token %}
+            {% for field in form %}
+                <div>
+                    <p>{{ field.label }}</p>
+                    <p>{{ field }}</p>
+                </div>
+            {% endfor %}
+            <input type="submit" class='btn btn-secondary submit-btn' value='리뷰 작성'>
+        </form>
+    </div>
+</div>
+{% endblock content %}

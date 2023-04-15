@@ -1,0 +1,31 @@
+{% extends '!base.html' %}
+
+
+{% block style %}
+.input-form {
+    width: 300px;
+}
+{% endblock style %}
+
+
+{% block content %}
+<div class='container-fluid'>
+    <div class='d-flex justify-content-center align-items-center me-4'>
+        <a href="{% url 'reviews:index' %}" class='back-btn'><span class="material-symbols-outlined">
+            arrow_back_ios
+        </span></a>
+        <h4><strong>로그인</strong></h4>
+    </div>
+    <div class='d-flex justify-content-center'>
+        <form action="{% url 'accounts:login' %}" method='POST' class='input-form'>
+            <hr>
+            {% csrf_token %}
+            {% for field in form %}
+            <p class='mb-1'>{{ field.label }}</p>
+            <p>{{ field }}</p>
+            {% endfor %}
+            <input type="submit" class='btn btn-secondary submit-btn' value="로그인">
+        </form>
+    </div>
+</div>
+{% endblock content %}

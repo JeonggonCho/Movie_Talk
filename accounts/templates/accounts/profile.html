@@ -1,0 +1,26 @@
+{% extends '!base.html' %}
+
+
+{% block style %}
+
+{% endblock style %}
+
+
+{% block content %}
+<div class='container-fluid'>
+    <div>
+        <p>아이디 : {{ user }}</p>
+        <p>이름 : {{ user.last_name }}{{ user.first_name }}</p>
+        <p>이메일 : {{ user.email }}</p>
+        <div class='d-flex gap-2'>
+            <a href="{% url 'accounts:update_account' %}" class='btn btn-primary'>수정</a>
+            <a href="{% url 'accounts:change_password' %}" class='btn btn-primary'>비밀번호 변경</a>
+            <form action="{% url 'accounts:delete_account' %}" method='POST'>
+                {% csrf_token %}
+                <input type="submit" value='삭제' class='btn btn-danger'>
+            </form>
+            <a href="{% url 'reviews:index' %}" class='btn btn-secondary'>뒤로가기</a>
+        </div>
+    </div>
+</div>
+{% endblock content %}

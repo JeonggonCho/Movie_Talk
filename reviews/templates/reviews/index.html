@@ -1,0 +1,123 @@
+{% extends '!base.html' %}
+{% load static %}
+
+
+{% block style %}
+.title {
+    font-size: 18px;
+    color: black;
+    text-decoration: none;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.link {
+    text-decoration: none;
+}
+
+.movie {
+    font-size: 12px;
+    color: gray;
+}
+
+.writer {
+    font-size: 12px;
+    color: black;
+}
+
+.comment-cnt {
+    height: 20px;
+    padding: 5px;
+    border-radius: 3px;
+    background-color: #e6e6e6;
+    font-size: 12px;
+    color: black;
+    line-height: 8px;
+    white-space: nowrap;
+}
+
+.card-form {
+    height: 430px;
+    width: 250px;
+    border: 0.1px solid lightgray;
+    border-radius: 10px;
+}
+
+.card-form:hover {
+    box-shadow: 1px 1px 15px lightgray;
+}
+
+.img-box {
+    height: 330px;
+    width: 250px;
+    background-color: white;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    overflow: hidden;
+}
+
+.img {
+    height: 330px;
+    width: 100%;
+    transition: all 0.2s linear;
+}
+
+.no_img {
+    height: 248px;
+    width: 248px;
+    margin-top: 40px;
+    border-radius: 10px;
+}
+
+.img:hover {
+    transform: scale(1.05);
+}
+
+.create-btn {
+    height: 34px;
+    font-size: 14px;
+    line-height: 20px;
+    border-radius: 17px;
+}
+{% endblock style %}
+
+
+{% block content %}
+<div class='container-fluid'>
+    <div class='d-flex align-items-center gap-3 mb-4'>
+        <h4 class='my-auto'>영화 평가</h4>
+        <a href="{% url 'reviews:review_create' %}" class='btn btn-secondary create-btn'>+ 글쓰기</a>
+    </div>
+    <div class='d-flex flex-wrap gap-4'>
+        {% for review in reviews %}
+            <a href="{% url 'reviews:detail' review.pk %}" class='link dropdown'>
+                <div class='card-form'>
+                    <div class='img-box'>
+                        {% if review.image %}
+                            <img src="{{ review.image.url }}" alt="img" class='img'>
+                        {% else %}
+                            <img src="{% static 'reviews/no_img.jpg' %}" alt="img" class='no_img'>
+                        {% endif %}
+                    </div>
+                    <div class='m-3'>
+                        <div class='d-flex justify-content-between'>
+                            <span class='movie'>MOVIE | {{ review.movie }}</span>
+                            <span class='created_at-font'>{{ comment.created_at|date:'Y-m-d' }}</span>
+                        </div>
+                        <p class='writer mb-2'>{{ review.user }}</p>
+                        <div class='d-flex justify-content-between'>
+                            <div class='title'>
+                                <b>{{ review.title }}</b>
+                            </div>
+                            <div class='comment-cnt my-auto'>
+                                <p>댓글 : <b>{{ review.comment_set.all|length }}</b></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        {% endfor %}
+    </div>
+</div>
+{% endblock content %}
