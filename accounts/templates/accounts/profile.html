@@ -1,25 +1,69 @@
 {% extends '!base.html' %}
-
+{% load static %}
 
 {% block style %}
+.profile-img-form {
+    width: 150px;
+    height: 150px;
+    border-radius: 75px;
+    border: 0.1px solid lightgray;
+    overflow: hidden;
+}
 
+.profile-img {
+    height: 100%;
+    width: 100%;
+    line-height: 30px;
+    object-fit: cover;
+}
+
+.profile-name {
+    margin: 0;
+    font-size: 28px;
+}
+
+.profile-id {
+    font-size: 14px;
+    color: gray;
+}
+
+.profile-email {
+    font-size: 14px;
+}
+
+.edit-btn {
+    height: 28px;
+    font-size: 12px;
+    line-height: 13px;
+    border-radius: 14px;
+}
 {% endblock style %}
 
 
 {% block content %}
 <div class='container-fluid'>
-    <div>
-        <p>아이디 : {{ user }}</p>
-        <p>이름 : {{ user.last_name }}{{ user.first_name }}</p>
-        <p>이메일 : {{ user.email }}</p>
-        <div class='d-flex gap-2'>
-            <a href="{% url 'accounts:update_account' %}" class='btn btn-primary'>수정</a>
-            <a href="{% url 'accounts:change_password' %}" class='btn btn-primary'>비밀번호 변경</a>
-            <form action="{% url 'accounts:delete_account' %}" method='POST'>
-                {% csrf_token %}
-                <input type="submit" value='삭제' class='btn btn-danger'>
-            </form>
-            <a href="{% url 'reviews:index' %}" class='btn btn-secondary'>뒤로가기</a>
+    <div class='d-flex justify-content-center'>
+        {% if request.user.profile_image %}
+            <div class='profile-img-form d-flex justify-content-center'>
+                <img src="{{ request.user.profile_image.url }}" alt="profile_image" class='profile-img'>
+            </div>
+        {% else %}
+            <div class='profile-img-form d-flex justify-content-center'>
+                <img src="{% static 'accounts/no_profile.jpeg' %}" alt="profile_image" class='profile-img'>
+            </div>
+        {% endif %}
+        <div class='ms-5'>
+            <p class='profile-name'>{{ user.last_name }}{{ user.first_name }}</p>
+            <p class='profile-id'>@{{ user }}</p>
+            <p class='profile-email'>{{ user.email }}</p>
+            <div class='d-flex gap-2'>
+                <a href="{% url 'accounts:update_account' %}" class='btn btn-outline-secondary edit-btn'>회원정보 수정</a>
+                <a href="{% url 'accounts:change_password' %}" class='btn btn-outline-secondary edit-btn'>비밀번호 변경</a>
+                <form action="{% url 'accounts:delete_account' %}" method='POST'>
+                    {% csrf_token %}
+                    <input type="submit" value='삭제' onclick="return confirm('삭제 하시겠습니까?')" class='btn btn-outline-danger edit-btn'>
+                </form>
+            </div>
         </div>
     </div>
 </div>

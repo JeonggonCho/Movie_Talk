@@ -17,7 +17,7 @@
         <h4><strong>회원가입</strong></h4>
     </div>
     <div class='d-flex justify-content-center'>
-        <form action="{% url 'accounts:signup' %}" method='POST' class='input-form'>
+        <form action="{% url 'accounts:signup' %}" method='POST' class='input-form' enctype='multipart/form-data'>
             <hr>
             {% csrf_token %}
             {% for field in form %}

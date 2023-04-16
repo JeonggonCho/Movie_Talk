@@ -10,11 +10,14 @@
 
 {% block content %}
 <div class='container-fluid'>
-    <div class='d-flex justify-content-center'>
-        <h4><strong>리뷰 작성</strong></h4>
+    <div class='d-flex justify-content-center align-items-center me-4'>
+        <a href="{% url 'reviews:detail' review.pk %}" class='back-btn'><span class="material-symbols-outlined">
+            arrow_back_ios
+        </span></a>
+        <h4><strong>리뷰 수정</strong></h4>
     </div>
     <div class='d-flex justify-content-center'>
-        <form action="{% url 'reviews:review_create' %}" method='POST' enctype='multipart/form-data'>
+        <form action="{% url 'reviews:review_update' review.pk %}" method='POST' enctype='multipart/form-data'>
             <hr>
             {% csrf_token %}
             {% for field in form %}
@@ -23,7 +26,7 @@
                     <p>{{ field }}</p>
                 </div>
             {% endfor %}
-            <input type="submit" class='btn btn-secondary submit-btn' value='리뷰 작성'>
+            <input type="submit" class='btn btn-secondary submit-btn' value='리뷰 수정'>
         </form>
     </div>
 </div>

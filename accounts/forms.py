@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth import get_user_model
-from django.contrib.auth.forms import UserCreationForm, UserChangeForm, AuthenticationForm
+from django.contrib.auth.forms import UserCreationForm, UserChangeForm, AuthenticationForm, PasswordChangeForm
 
 
 class CustomUserCreationForm(UserCreationForm):
@@ -170,3 +170,39 @@ class CustomAuthenticationForm(AuthenticationForm):
                 self.error_messages['inactive'],
                 code='inactive',
             )
+        
+
+class CustomPasswordChangeForm(PasswordChangeForm):
+    old_password = forms.CharField(
+        label="기존 비밀번호",
+        strip=False,
+        widget=forms.PasswordInput(
+            attrs={
+                'class': 'form-control',
+            },
+        ),
+    )
+
+    new_password1 = forms.CharField(
+        label="새 비밀번호",
+        strip=False,
+        widget=forms.PasswordInput(
+            attrs={
+                'class': 'form-control',
+            },
+        ),
+    )
+
+    new_password2 = forms.CharField(
+        label="새 비밀번호 확인",
+        strip=False,
+        widget=forms.PasswordInput(
+            attrs={
+                'class': 'form-control',
+            },
+        ),
+    )
+
+    class Meta(UserCreationForm.Meta):
+        model = get_user_model()
+        fields = ('old_password', 'new_password1', 'new_password2')

@@ -73,21 +73,13 @@
 .img:hover {
     transform: scale(1.05);
 }
-
-.create-btn {
-    height: 34px;
-    font-size: 14px;
-    line-height: 20px;
-    border-radius: 17px;
-}
 {% endblock style %}
 
 
 {% block content %}
 <div class='container-fluid'>
-    <div class='d-flex align-items-center gap-3 mb-4'>
-        <h4 class='my-auto'>영화 평가</h4>
-        <a href="{% url 'reviews:review_create' %}" class='btn btn-secondary create-btn'>+ 글쓰기</a>
+    <div class='d-flex align-items-center mb-4'>
+        <h5>영화 리뷰</h5>
     </div>
     <div class='d-flex flex-wrap gap-4'>
         {% for review in reviews %}

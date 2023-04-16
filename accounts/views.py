@@ -4,8 +4,8 @@ from django.contrib.auth import logout as auth_logout
 from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.forms import AuthenticationForm, PasswordChangeForm
-from .forms import CustomUserCreationForm, CustomUserChangeForm, CustomAuthenticationForm
+from .forms import CustomUserCreationForm, CustomUserChangeForm, CustomAuthenticationForm, CustomPasswordChangeForm
+
 
 # Create your views here.
 def login(request):
@@ -36,10 +36,10 @@ def signup(request):
         return redirect('reviews:index')
     
     if request.method == 'POST':
-        form = CustomUserCreationForm(request.POST)
+        form = CustomUserCreationForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
-            return redirect('reviews:index')
+            return redirect('accounts:login')
     else:
         form = CustomUserCreationForm()
     context = {
@@ -66,10 +66,10 @@ def profile(request, user_pk):
 @login_required
 def update_account(request):
     if request.method == 'POST':
-        form = CustomUserChangeForm(request.POST, instance=request.user)
+        form = CustomUserChangeForm(request.POST, request.FILES, instance=request.user)
         if form.is_valid():
             form.save()
-            return redirect('reviews:index')
+            return redirect('accounts:profile', request.user.pk)
     else:
         form = CustomUserChangeForm(instance=request.user)
     context = {
@@ -81,13 +81,13 @@ def update_account(request):
 @login_required
 def change_password(request):
     if request.method == 'POST':
-        form = PasswordChangeForm(request.user, request.POST)
+        form = CustomPasswordChangeForm(request.user, request.POST)
         if form.is_valid():
             user = form.save()
             update_session_auth_hash(request, user)
             return redirect('reviews:index')
     else:
-        form = PasswordChangeForm(request.user)
+        form = CustomPasswordChangeForm(request.user)
     context = {
         'form': form,
     }

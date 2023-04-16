@@ -47,13 +47,19 @@ def review_update(request, review_pk):
     review = Review.objects.get(pk=review_pk)
     if request.user == review.user:
         if request.method == 'POST':
-            form = ReviewForm(request, instance=request.POST)
+            form = ReviewForm(request.POST, request.FILES, instance=review)
+            if form.is_valid():
+                form.save()
+                return redirect('reviews:detail', review_pk)
         else:
-            form = ReviewForm(instance=request.POST)
-        context = {
-            'form': form,
-        }
-        return render(request, 'reviews/review_update.html', context)
+            form = ReviewForm(instance=review)
+    else:
+        return redirect('reviews:detail', review_pk)
+    context = {
+        'form': form,
+        'review': review,
+    }
+    return render(request, 'reviews/review_update.html', context)
 
 
 # 리뷰 디테일
