@@ -55,8 +55,8 @@ def delete_account(request):
 
 
 @login_required
-def profile(request, user_pk):
-    person = get_user_model().objects.get(pk=user_pk)
+def profile(request, username):
+    person = get_user_model().objects.get(username=username)
     context = {
         'person': person,
     }
@@ -92,3 +92,7 @@ def change_password(request):
         'form': form,
     }
     return render(request, 'accounts/change_password.html', context)
+
+
+def follow(request, username):
+    return redirect

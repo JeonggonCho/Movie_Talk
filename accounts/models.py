@@ -7,6 +7,7 @@ import os
 class User(AbstractUser):
     birthday = models.DateField(blank=False, null=False)
     profile_image = models.ImageField(upload_to='', blank=True, null=True)
+    followings = models.ManyToManyField('self', related_name='followers', symmetrical=False)
 
     def delete(self, *args, **kargs):
         if self.profile_image:

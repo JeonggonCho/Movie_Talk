@@ -129,17 +129,19 @@
             {% endif %}
         </div>
         <h4>{{ review.title }}</h4>
-        <div class='d-flex mb-3 align-items-center'>
-            {% if review.user.profile_image %}
-                <div class='profile-image-form'>
-                    <img src="{{ review.user.profile_image.url }}" alt="" class='profile-image'>
-                </div>
-            {% else %}
-                <div class='profile-image-form'>
-                    <img src="{% static 'accounts/no_profile.jpeg' %}" alt="profile_image" class='profile-image'>
-                </div>
-            {% endif %}
-            <p class='mx-2 my-auto font-14'>{{ review.user }}</p>
+        <div class='d-flex'>
+            <a href="{% url 'accounts:profile' review.user.username %}" class='d-flex mb-3 align-items-center'>
+                {% if review.user.profile_image %}
+                    <div class='profile-image-form'>
+                        <img src="{{ review.user.profile_image.url }}" alt="" class='profile-image'>
+                    </div>
+                {% else %}
+                    <div class='profile-image-form'>
+                        <img src="{% static 'accounts/no_profile.jpeg' %}" alt="profile_image" class='profile-image'>
+                    </div>
+                {% endif %}
+                <p class='mx-2 my-auto font-14'>{{ review.user }}</p>
+            </a>
         </div>
         <div class='content-form px-3'>
             <div class='d-flex justify-content-between py-auto'>
@@ -159,7 +161,7 @@
                 </div>
             </div>
             <p class='movie-font'>{{ review.created_at|date:'Y-m-d' }}</p>
-            <p class='comment-form content-font text-wrap'>{{ review.content }}</p>
+            <p class='comment-form content-url content-font text-wrap'>{{ review.content|urlize }}</p>
         </div>
     </div>
     <div class='container-fluid mt-3 col-6'>
@@ -185,19 +187,21 @@
                     {% for comment in comments %}
                         <li class='d-flex justify-content-between align-items-end'>
                             <div class='col-10'>
-                                <div class='mb-2 d-flex align-items-center gap-2'>
-                                    {% if comment.user.profile_image %}
-                                        <div class='profile-image-form'>
-                                            <img src="{{ comment.user.profile_image.url }}" alt="" class='profile-image'>
-                                        </div>
-                                    {% else %}
-                                        <div class='profile-image-form'>
-                                            <img src="{% static 'accounts/no_profile.jpeg' %}" alt="profile_image" class='profile-image'>
-                                        </div>
-                                    {% endif %}
-                                    <span class='comment-writer'>{{ comment.user }}</span> <span class='created_at-font'>{{ comment.created_at|date:'Y-m-d' }}</span>
+                                <div class='mb-2 d-flex align-items-center gap-3'>
+                                    <a href="{% url 'accounts:profile' comment.user.username %}" class='d-flex align-items-center gap-2'>
+                                        {% if comment.user.profile_image %}
+                                            <div class='profile-image-form'>
+                                                <img src="{{ comment.user.profile_image.url }}" alt="" class='profile-image'>
+                                            </div>
+                                        {% else %}
+                                            <div class='profile-image-form'>
+                                                <img src="{% static 'accounts/no_profile.jpeg' %}" alt="profile_image" class='profile-image'>
+                                            </div>
+                                        {% endif %}
+                                        <span class='comment-writer'>{{ comment.user }}</span>
+                                    </a> <span class='created_at-font'>{{ comment.created_at|date:'Y-m-d' }}</span>
                                 </div>
-                                <p class='mb-0 comment-text'>{{ comment.content }}</p>
+                                <p class='mb-0 comment-text content-url'>{{ comment.content|urlize }}</p>
                             </div>
                             {% if comment.user == request.user %}
                                 <form action="{% url 'reviews:comment_delete' review.pk comment.pk %}" class='col-2 align-end pe-1'>
