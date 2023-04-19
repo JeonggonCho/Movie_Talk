@@ -27,6 +27,7 @@ class ReviewForm(forms.ModelForm):
                 'class': 'form-control form-control-sm',
             },
         ),
+        required=False,
     )
 
     content = forms.CharField(

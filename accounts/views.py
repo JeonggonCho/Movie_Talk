@@ -56,9 +56,9 @@ def delete_account(request):
 
 @login_required
 def profile(request, user_pk):
-    user = get_user_model().objects.get(pk=user_pk)
+    person = get_user_model().objects.get(pk=user_pk)
     context = {
-        'user': user,
+        'person': person,
     }
     return render(request, 'accounts/profile.html', context)
 

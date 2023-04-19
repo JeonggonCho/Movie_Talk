@@ -7,7 +7,7 @@ from .forms import ReviewForm, CommentForm
 
 # 메인 페이지 조회
 def index(request):
-    reviews = Review.objects.all()
+    reviews = Review.objects.all().order_by('-created_at')
     context = {
         'reviews': reviews,
     }
