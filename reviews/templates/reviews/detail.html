@@ -3,115 +3,7 @@
 
 
 {% block style %}
-.img {
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    height: 380px;
-    width: 260px;
-    z-index: 1000;
-}
-
-.bg-img-form {
-    position: relative;
-    height: 450px;
-    border-radius: 10px;
-    overflow: hidden;
-}
-
-.bg-img {
-    position: absolute;
-    width: 100%;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 1;
-}
-
-.bg-filter {
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    height: 450px;
-    width: 100%;
-    backdrop-filter: blur(6px);
-    background: rgba(255, 255, 255, 0.2);
-    z-index: 10;
-}
-
-.content-form {
-    width: 100%;
-    background-color: #e9e9e9;
-    border-radius: 8px;
-    padding: 10px;
-}
-
-.movie-font {
-    font-size: 12px;
-    color: gray;
-}
-
-.created_at-font {
-    font-size: 12px;
-    color: gray;
-}
-
-.content-font {
-    font-size: 15px;
-}
-
-.comment-writer {
-    font-size: 12px;
-}
-
-.delete-btn {
-    border: 0;
-    background-color: transparent;
-    font-size: 12px;
-    color: #999999;
-    transition: all 0.2s linear;
-}
-
-.delete-btn:hover {
-    color: black;
-}
-
-.edit-btn {
-    font-size: 12px;
-    color: #999999;
-    transition: all 0.2s linear;
-}
-
-.edit-btn:hover {
-    color: black;
-}
-
-.comment-submit-btn {
-    width: 60px;
-    height: 38px;
-    font-size: 14px;
-    border-radius: 8px;
-    line-height: 0;
-}
-
-.comment-input {
-    width: 100%;
-}
-
-.scroll {
-    height: 520px;
-    overflow: auto;
-}
-
-.comment-text {
-    word-wrap: break-word;
-}
-
-.align-end {
-    text-align: end;
-}
+<link rel="stylesheet" href="{% static 'reviews/css/detail.css' %}">
 {% endblock style %}
 
 
@@ -125,7 +17,7 @@
                 <img src="{{ review.image.url }}" alt="img" class='bg-img'>
             {% else %}
                 <div class='bg-filter'></div>
-                <img src="{% static 'reviews/no_img.jpg' %}" alt="img" class='bg-img'>
+                <img src="{% static 'reviews/img/no_img.jpg' %}" alt="img" class='bg-img'>
             {% endif %}
         </div>
         <h4>{{ review.title }}</h4>
@@ -137,7 +29,7 @@
                     </div>
                 {% else %}
                     <div class='profile-image-form'>
-                        <img src="{% static 'accounts/no_profile.jpeg' %}" alt="profile_image" class='profile-image'>
+                        <img src="{% static 'accounts/img/no_profile.jpeg' %}" alt="profile_image" class='profile-image'>
                     </div>
                 {% endif %}
                 <p class='mx-2 my-auto font-14'>{{ review.user }}</p>
@@ -195,7 +87,7 @@
                                             </div>
                                         {% else %}
                                             <div class='profile-image-form'>
-                                                <img src="{% static 'accounts/no_profile.jpeg' %}" alt="profile_image" class='profile-image'>
+                                                <img src="{% static 'accounts/img/no_profile.jpeg' %}" alt="profile_image" class='profile-image'>
                                             </div>
                                         {% endif %}
                                         <span class='comment-writer'>{{ comment.user }}</span>
