@@ -5,7 +5,7 @@ import os
 
 # Create your models here.
 class User(AbstractUser):
-    birthday = models.DateField(blank=False, null=False)
+    birthday = models.DateField(blank=True, null=True)
     profile_image = models.ImageField(upload_to='', blank=True, null=True)
     followings = models.ManyToManyField('self', related_name='followers', symmetrical=False)
 

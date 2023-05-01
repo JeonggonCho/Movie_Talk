@@ -1,0 +1,43 @@
+{% extends '!base.html' %}
+{% load static %}
+
+
+{% block style %}
+<link rel="stylesheet" href="{% static 'css/main.css' %}">
+{% endblock style %}
+
+
+{% block content %}
+    <div id="carouselExampleIndicators" class="carousel slide">
+        <div class="carousel-indicators">
+            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+        </div>
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <div class="carousel-img mx-auto">
+                    <img src="https://t1.daumcdn.net/cfile/tistory/236A5E4D52D6B15B03" class="d-block w-100" alt="...">
+                </div>
+            </div>
+            <div class="carousel-item">
+                <div class="carousel-img mx-auto">
+                    <img src="https://blog.kakaocdn.net/dn/bbysgU/btrVAuE9vVU/fkQ9A20TmspWJiFqAek9u0/img.jpg" class="d-block w-100" alt="...">
+                </div>
+            </div>
+            <div class="carousel-item">
+                <div class="carousel-img mx-auto">
+                    <img src="https://prod-ripcut-delivery.disney-plus.net/v1/variant/disney/C3B5ADDCD7E97661E3B6985821655913A1D8C604C20F5FDA12FC8C3ABA147136/scale?width=1200&aspectRatio=1.78&format=jpeg" class="d-block w-100" alt="...">
+                </div>
+            </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+    </div>
+{% endblock content %}
