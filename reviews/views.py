@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
-from .models import Review, Comment
+from .models import Review, Comment, ReviewPhoto
 from .forms import ReviewForm, CommentForm
 
 # Create your views here.
@@ -18,11 +18,16 @@ def index(request):
 @login_required
 def review_create(request):
     if request.method == 'POST':
-        form = ReviewForm(request.POST, request.FILES)
+        form = ReviewForm(request.POST)
         if form.is_valid():
             review = form.save(commit=False)
             review.user = request.user
             review = form.save()
+
+            images = request.FILES.getlist('image')
+            for image in images:
+                photo = ReviewPhoto(review=review, photo=image)
+                photo.save()
             return redirect('reviews:detail', review.pk)
     else:
         form = ReviewForm()

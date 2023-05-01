@@ -25,6 +25,7 @@ class ReviewForm(forms.ModelForm):
         widget=forms.ClearableFileInput(
             attrs={
                 'class': 'form-control form-control-sm',
+                'multiple': 'True',
             },
         ),
         required=False,
